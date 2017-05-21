@@ -23,5 +23,5 @@ Run entertainment_center.py using:
 $ python entertainment_center.py
 ```
 
-This code will generate fresh_tomatoes.hmtl and automatically open it in your default browser.
+This code will generate fresh_tomatoes.html and automatically open it in your default browser.
 
