@@ -1,3 +1,10 @@
+"""
+IPND Stage 3 - Make Your Own Movie Website
+Module - 'fresh_tomatoes' - builds movie webpage from input movies, displays webpage
+Author - Gianpaolo Impronta
+Date - 17/05/17
+"""
+
 import webbrowser
 import os
 import re
@@ -6,7 +13,7 @@ import re
 main_page_head = '''
 <head>
     <meta charset="utf-8">
-    <title>Fresh Tomatoes!</title>
+    <title>Ripe Tomatoes!</title>
 
     <!-- Bootstrap 3 -->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
@@ -27,10 +34,6 @@ main_page_head = '''
             top: -12px;
             right: -12px;
             z-index: 9001;
-        }
-        #trailer-video {
-            width: 100%;
-            height: 100%;
         }
         .movie-tile {
             margin-bottom: 20px;
@@ -105,7 +108,7 @@ main_page_content = '''
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Fresh Tomatoes Movie Trailers</a>
+            <a class="navbar-brand" href="#">Ripe Tomatoes!</a>
           </div>
         </div>
       </div>
@@ -122,8 +125,15 @@ movie_tile_content = '''
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
     <img src="{poster_image_url}" width="220" height="342">
     <h2>{movie_title}</h2>
+    <h5>IMDB Rating: {imdb_rating}</h5>
+    <h5>Year of production: {year}</h5>
+    <h5>Director: {director}</h5>
+    <h5>Duration: {duration} min</h5>
+    <h5>Genre: {genre}</h5>
+
 </div>
 '''
+
 
 def create_movie_tiles_content(movies):
     # The HTML content for this section of the page
@@ -138,21 +148,27 @@ def create_movie_tiles_content(movies):
         content += movie_tile_content.format(
             movie_title=movie.title,
             poster_image_url=movie.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id
+            trailer_youtube_id=trailer_youtube_id,
+            imdb_rating=movie.imdb_rating,
+            year=movie.year,
+            director=movie.director,
+            duration=movie.duration,
+            genre=movie.genre
         )
     return content
 
+
 def open_movies_page(movies):
-  # Create or overwrite the output file
-  output_file = open('fresh_tomatoes.html', 'w')
+    # Create or overwrite the output file
+    output_file = open('fresh_tomatoes.html', 'w')
 
-  # Replace the placeholder for the movie tiles with the actual dynamically generated content
-  rendered_content = main_page_content.format(movie_tiles=create_movie_tiles_content(movies))
+    # Replace the placeholder for the movie tiles with the actual dynamically generated content
+    rendered_content = main_page_content.format(movie_tiles=create_movie_tiles_content(movies))
 
-  # Output the file
-  output_file.write(main_page_head + rendered_content)
-  output_file.close()
+    # Output the file
+    output_file.write(main_page_head + rendered_content)
+    output_file.close()
 
-  # open the output file in the browser
-  url = os.path.abspath(output_file.name)
-  webbrowser.open('file://' + url, new=2) # open in a new tab, if possible
+    # open the output file in the browser
+    url = os.path.abspath(output_file.name)
+    webbrowser.open('file://' + url, new=2)  # open in a new tab, if possible
