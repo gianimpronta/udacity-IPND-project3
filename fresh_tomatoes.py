@@ -136,6 +136,13 @@ movie_tile_content = '''
 
 
 def create_movie_tiles_content(movies):
+    """
+    Create HTML code for the movie tiles section based on a list of Movie objects.
+    :param movies: list of Movie objects
+    :type movies: list
+    :return: HTML code for the movie tiles section
+    :rtype: string
+    """
     # The HTML content for this section of the page
     content = ''
     for movie in movies:
@@ -159,6 +166,12 @@ def create_movie_tiles_content(movies):
 
 
 def open_movies_page(movies):
+    """
+    Create the html page and open it in the browser
+    :param movies: Movie objects
+    :type movies: list
+    :return: None
+    """
     # Create or overwrite the output file
     output_file = open('fresh_tomatoes.html', 'w')
 
